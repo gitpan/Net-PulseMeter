@@ -2,8 +2,11 @@
 
 use warnings;
 use strict;
+use lib 't/tlib';
 use Test::More;
-use Redis;
+use Test::MockTime qw/set_fixed_time/;
+use MockedRedis;
+use Net::PulseMeter::Sensor::Base;
 use Net::PulseMeter::Sensor::Timeline;
 
 my $params = {
@@ -11,8 +14,11 @@ my $params = {
     interval => 100
 };
 
+set_fixed_time(time);
+my $r = MockedRedis->new;
+Net::PulseMeter::Sensor::Base->redis($r);
+
 my $s = Net::PulseMeter::Sensor::Timeline->new("foo", %$params);
-my $r = Redis->new;
 
 for ('raw_data_ttl', 'interval') {
     my $accessor = $_;

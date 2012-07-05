@@ -15,7 +15,7 @@
 #     AUTHOR => q[Sergey Averyanov, Ilya Averyanov (averyanov@gmail.com, ilya.averyanov@gmail.com)]
 #     BUILD_REQUIRES => {  }
 #     NAME => q[PulseMeter]
-#     PREREQ_PM => { Redis=>q[1.951], Data::Uniqid=>q[0.11], Test::Simple=>q[0.44] }
+#     PREREQ_PM => { Redis=>q[1.951], Data::Uniqid=>q[0.11], Test::MockTime=>q[0.12], Test::Simple=>q[0.44], Test::Mock::Redis=>q[0.08] }
 #     VERSION_FROM => q[lib/Net/PulseMeter.pm]
 
 # --- MakeMaker post_initialize section:
@@ -55,11 +55,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = PulseMeter
 NAME_SYM = PulseMeter
-VERSION = 0.01
+VERSION = 0.03
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_01
+VERSION_SYM = 0_03
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.01
+XS_VERSION = 0.03
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -304,7 +304,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = PulseMeter
-DISTVNAME = PulseMeter-0.01
+DISTVNAME = PulseMeter-0.03
 
 
 # --- MakeMaker macro section:
@@ -525,7 +525,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
 	$(NOECHO) $(ECHO) '--- #YAML:1.0' > META_new.yml
 	$(NOECHO) $(ECHO) 'name:               PulseMeter' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version:            0.01' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version:            0.03' >> META_new.yml
 	$(NOECHO) $(ECHO) 'abstract:           Perl implementation of pulse-meter gem' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - Sergey Averyanov, Ilya Averyanov (averyanov@gmail.com, ilya.averyanov@gmail.com)' >> META_new.yml
@@ -536,9 +536,11 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    Data::Uniqid:  0.11' >> META_new.yml
-	$(NOECHO) $(ECHO) '    Redis:         1.951' >> META_new.yml
-	$(NOECHO) $(ECHO) '    Test::Simple:  0.44' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Data::Uniqid:       0.11' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Redis:              1.951' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Test::Mock::Redis:  0.08' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Test::MockTime:     0.12' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Test::Simple:       0.44' >> META_new.yml
 	$(NOECHO) $(ECHO) 'no_index:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    directory:' >> META_new.yml
 	$(NOECHO) $(ECHO) '        - t' >> META_new.yml
@@ -837,12 +839,14 @@ testdb_static :: testdb_dynamic
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.01">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.03">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Perl implementation of pulse-meter gem</ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Sergey Averyanov, Ilya Averyanov (averyanov@gmail.com, ilya.averyanov@gmail.com)</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Data::Uniqid" VERSION="0.11" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Redis::" VERSION="1.951" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::Mock::Redis" VERSION="0.08" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::MockTime" VERSION="0.12" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::Simple" VERSION="0.44" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="darwin-thread-multi-2level-5.12" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
