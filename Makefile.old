@@ -55,11 +55,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = PulseMeter
 NAME_SYM = PulseMeter
-VERSION = 0.04
+VERSION = 0.05
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_04
+VERSION_SYM = 0_05
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.04
+XS_VERSION = 0.05
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -187,6 +187,7 @@ TO_INST_PM = PulseMeter/MANIFEST.bak \
 	lib/Net/PulseMeter.pm \
 	lib/Net/PulseMeter/Sensor/Base.pm \
 	lib/Net/PulseMeter/Sensor/Counter.pm \
+	lib/Net/PulseMeter/Sensor/HashedCounter.pm \
 	lib/Net/PulseMeter/Sensor/HashedIndicator.pm \
 	lib/Net/PulseMeter/Sensor/Indicator.pm \
 	lib/Net/PulseMeter/Sensor/Timeline.pm \
@@ -228,6 +229,8 @@ PM_TO_BLIB = lib/Net/PulseMeter/Sensor/HashedIndicator.pm \
 	blib/lib/Net/PulseMeter/Sensor/Timelined/Indicator.pm \
 	lib/Net/PulseMeter/Sensor/UniqCounter.pm \
 	blib/lib/Net/PulseMeter/Sensor/UniqCounter.pm \
+	lib/Net/PulseMeter/Sensor/HashedCounter.pm \
+	blib/lib/Net/PulseMeter/Sensor/HashedCounter.pm \
 	lib/Net/PulseMeter/Sensor/Timelined/HashedIndicator.pm \
 	blib/lib/Net/PulseMeter/Sensor/Timelined/HashedIndicator.pm \
 	lib/Net/PulseMeter/Sensor/Timeline.pm \
@@ -310,7 +313,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = PulseMeter
-DISTVNAME = PulseMeter-0.04
+DISTVNAME = PulseMeter-0.05
 
 
 # --- MakeMaker macro section:
@@ -531,7 +534,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
 	$(NOECHO) $(ECHO) '--- #YAML:1.0' > META_new.yml
 	$(NOECHO) $(ECHO) 'name:               PulseMeter' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version:            0.04' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version:            0.05' >> META_new.yml
 	$(NOECHO) $(ECHO) 'abstract:           Perl implementation of pulse-meter gem' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - Sergey Averyanov, Ilya Averyanov (averyanov@gmail.com, ilya.averyanov@gmail.com)' >> META_new.yml
@@ -845,7 +848,7 @@ testdb_static :: testdb_dynamic
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.04">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.05">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Perl implementation of pulse-meter gem</ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Sergey Averyanov, Ilya Averyanov (averyanov@gmail.com, ilya.averyanov@gmail.com)</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
@@ -877,6 +880,7 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  lib/Net/PulseMeter.pm blib/lib/Net/PulseMeter.pm \
 	  lib/Net/PulseMeter/Sensor/Timelined/Indicator.pm blib/lib/Net/PulseMeter/Sensor/Timelined/Indicator.pm \
 	  lib/Net/PulseMeter/Sensor/UniqCounter.pm blib/lib/Net/PulseMeter/Sensor/UniqCounter.pm \
+	  lib/Net/PulseMeter/Sensor/HashedCounter.pm blib/lib/Net/PulseMeter/Sensor/HashedCounter.pm \
 	  lib/Net/PulseMeter/Sensor/Timelined/HashedIndicator.pm blib/lib/Net/PulseMeter/Sensor/Timelined/HashedIndicator.pm \
 	  lib/Net/PulseMeter/Sensor/Timeline.pm blib/lib/Net/PulseMeter/Sensor/Timeline.pm \
 	  lib/Net/PulseMeter/Sensor/Timelined/Min.pm blib/lib/Net/PulseMeter/Sensor/Timelined/Min.pm \
